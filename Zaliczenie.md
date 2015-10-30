@@ -7,7 +7,7 @@
 1. Bołt Aleksander
 1. [Czerwiński, Mateusz](https://github.com/mtczerwinski/red-nosql)
 1. Jasiński Remigiusz
-1. Kulewicz Wojciech
+1. [Kulewicz, Wojciech](https://github.com/wkulewicz/nosql.wk)
 1. Leyk Szymon
 1. [Maziarz, Paulina](https://github.com/pmaziarz/solutions-nosql)
 1. [Mielniczuk, Małgorzata](https://github.com/Gosiamek/NoSQL.git)
