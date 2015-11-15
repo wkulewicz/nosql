@@ -78,16 +78,17 @@ The above aggregation pipeline is build from two pipeline operators:
 The `$group` pipeline operator requires `_id` field where we specify
 grouping; remaining fields specify how to generate composite value and
 must use one of
-[the group aggregation functions](http://docs.mongodb.org/manual/reference/aggregation/#group-operators):
+[Aggregation Reference](https://docs.mongodb.org/master/reference/aggregation),
+[the group aggregation functions](https://docs.mongodb.org/master/reference/operator/aggregation/group):
 `$addToSet`, `$first`, `$last`, `$max`, `$min`, `$avg`, `$push`, `$sum`.
 The `$match` pipeline operator syntax is the same as
-the [read operation](http://docs.mongodb.org/manual/core/read-operations/)
+the [read operation](https://docs.mongodb.org/master/core/read-operations)
 query syntax.
 
 The `$group` process reads all documents and for each state it
 creates a separate document, for example:
 
-```ruby
+```json
 {
    "_id": "CA",
    "totalPop": 29760021
@@ -240,7 +241,7 @@ mongoimport --drop --db test --collection cal name_days.json
 The collection *cal*  should contain 364 documents
 in the following format:
 
-```json
+```js
 {
   "_id": ObjectId("51643484c20a89f0145ac8e8"),
   "names": [
@@ -318,7 +319,7 @@ Precisely, we want to convert documents from this format:
 
 ```json
 {
-   "date": { "day": 1, "month": 1 }
+   "date": { "day": 1, "month": 1 },
    "names": [ "Mieszka", "Mieczysława", "Marii" ],
 }
 ```
