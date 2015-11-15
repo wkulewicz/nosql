@@ -1,7 +1,9 @@
 ## Aggregation Pipeline Examples (MongoDB, Javascript)
 
 This document provides a number of practical examples that display the
-capabilities of the aggregation framework.
+capabilities of the aggregation framework, see also official documentation:
+
+* [Aggregation Pipeline](https://docs.mongodb.org/master/core/aggregation-pipeline).
 
 The [_Aggregations using the Zip Codes Data Set_](http://docs.mongodb.org/manual/tutorial/aggregation-examples/#aggregations-using-the-zip-code-data-set)
 examples uses a publicly available data set of all zipcodes and
@@ -77,9 +79,7 @@ The above aggregation pipeline is build from two pipeline operators:
 
 The `$group` pipeline operator requires `_id` field where we specify
 grouping; remaining fields specify how to generate composite value and
-must use one of
-[Aggregation Reference](https://docs.mongodb.org/master/reference/aggregation),
-[the group aggregation functions](https://docs.mongodb.org/master/reference/operator/aggregation/group):
+must use one of [the group aggregation functions](https://docs.mongodb.org/master/reference/operator/aggregation/group):
 `$addToSet`, `$first`, `$last`, `$max`, `$min`, `$avg`, `$push`, `$sum`.
 The `$match` pipeline operator syntax is the same as
 the [read operation](https://docs.mongodb.org/master/core/read-operations)
