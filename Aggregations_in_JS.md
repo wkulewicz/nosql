@@ -27,7 +27,7 @@ Each document in this collection has the following form:
 ```json
 {
   "_id" : "35004",
-  "city" : "Acmar",
+  "city" : "ACMAR",
   "state" : "AL",
   "pop" : 6055,
   "loc" : [-86.51557, 33.584132]
