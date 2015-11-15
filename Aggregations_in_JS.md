@@ -11,7 +11,7 @@ populations in the United States. These data are available at:
 
 ## Requirements
 
-* [MongoDB](http://www.mongodb.org/downloads), version 2.6.4 or later.
+* [MongoDB](http://www.mongodb.org/downloads), version 3.2.0 or later.
 
 Use the following command to load *zips.json* data set into
 **your** *mongod* instance:
@@ -49,17 +49,16 @@ To get all states with a population greater than 10 million, use
 the following aggregation pipeline:
 
 ```js
-coll = db.zipcodes
-
-coll.aggregate(
+db.zipcodes.aggregate([
   { $group: {_id: "$state", totalPop: {$sum: "$pop"}} },
   { $match: {totalPop: {$gte: 10000000}} }
-)
+])
 ```
 The result:
 
-```json
+```js
 {
+  "waitedMS": NumberLong("0"),
   "result": [
     { "_id": "PA", "totalPop": 11881643 },
     { "_id": "OH", "totalPop": 10847115 },
