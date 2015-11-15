@@ -3,7 +3,6 @@
 
 ## Stacjonarne
 
-1. [Bzyl, Włodek](https://github.com/egzamin/solutions)
 1. Bołt Aleksander
 1. [Czerwiński, Mateusz](https://github.com/mtczerwinski/red-nosql)
 1. [Jasiński Remigiusz](https://github.com/rjasinski/nosql)
