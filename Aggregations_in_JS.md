@@ -1,7 +1,9 @@
 ## Aggregation Pipeline Examples (MongoDB, Javascript)
 
 This document provides a number of practical examples that display the
-capabilities of the aggregation framework.
+capabilities of the aggregation framework, see also official documentation:
+
+* [Aggregation Pipeline](https://docs.mongodb.org/master/core/aggregation-pipeline).
 
 The [_Aggregations using the Zip Codes Data Set_](http://docs.mongodb.org/manual/tutorial/aggregation-examples/#aggregations-using-the-zip-code-data-set)
 examples uses a publicly available data set of all zipcodes and
@@ -11,7 +13,7 @@ populations in the United States. These data are available at:
 
 ## Requirements
 
-* [MongoDB](http://www.mongodb.org/downloads), version 2.6.4 or later.
+* [MongoDB](http://www.mongodb.org/downloads), version 3.2.0 or later.
 
 Use the following command to load *zips.json* data set into
 **your** *mongod* instance:
@@ -27,7 +29,7 @@ Each document in this collection has the following form:
 ```json
 {
   "_id" : "35004",
-  "city" : "Acmar",
+  "city" : "ACMAR",
   "state" : "AL",
   "pop" : 6055,
   "loc" : [-86.51557, 33.584132]
@@ -49,17 +51,16 @@ To get all states with a population greater than 10 million, use
 the following aggregation pipeline:
 
 ```js
-coll = db.zipcodes
-
-coll.aggregate(
+db.zipcodes.aggregate([
   { $group: {_id: "$state", totalPop: {$sum: "$pop"}} },
   { $match: {totalPop: {$gte: 10000000}} }
-)
+])
 ```
 The result:
 
-```json
+```js
 {
+  "waitedMS": NumberLong("0"),
   "result": [
     { "_id": "PA", "totalPop": 11881643 },
     { "_id": "OH", "totalPop": 10847115 },
@@ -78,17 +79,16 @@ The above aggregation pipeline is build from two pipeline operators:
 
 The `$group` pipeline operator requires `_id` field where we specify
 grouping; remaining fields specify how to generate composite value and
-must use one of
-[the group aggregation functions](http://docs.mongodb.org/manual/reference/aggregation/#group-operators):
+must use one of [the group aggregation functions](https://docs.mongodb.org/master/reference/operator/aggregation/group):
 `$addToSet`, `$first`, `$last`, `$max`, `$min`, `$avg`, `$push`, `$sum`.
 The `$match` pipeline operator syntax is the same as
-the [read operation](http://docs.mongodb.org/manual/core/read-operations/)
+the [read operation](https://docs.mongodb.org/master/core/read-operations)
 query syntax.
 
 The `$group` process reads all documents and for each state it
 creates a separate document, for example:
 
-```ruby
+```json
 {
    "_id": "CA",
    "totalPop": 29760021
@@ -241,7 +241,7 @@ mongoimport --drop --db test --collection cal name_days.json
 The collection *cal*  should contain 364 documents
 in the following format:
 
-```json
+```js
 {
   "_id": ObjectId("51643484c20a89f0145ac8e8"),
   "names": [
@@ -319,7 +319,7 @@ Precisely, we want to convert documents from this format:
 
 ```json
 {
-   "date": { "day": 1, "month": 1 }
+   "date": { "day": 1, "month": 1 },
    "names": [ "Mieszka", "Mieczysława", "Marii" ],
 }
 ```

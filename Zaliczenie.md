@@ -3,7 +3,6 @@
 
 ## Stacjonarne
 
-1. [Bzyl, Włodek](https://github.com/egzamin/solutions)
 1. Bołt Aleksander
 1. [Czerwiński, Mateusz](https://github.com/mtczerwinski/red-nosql)
 1. [Jasiński Remigiusz](https://github.com/rjasinski/nosql)
@@ -17,7 +16,7 @@
 1. [Sikora Jacek](https://github.com/jaresh/nosql)
 1. [Słowikowska Sylwia](https://github.com/sslowikowska/nosql)
 1. Wolf Tomasz
-1. Zhorniak Oleksandr
+1. [Zhorniak Oleksandr](https://github.com/zh0ra/nosql)
 
 
 ## Niestacjonarne

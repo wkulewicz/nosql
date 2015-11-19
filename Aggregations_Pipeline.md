@@ -1,6 +1,6 @@
-## Aggregation Pipeline, version 2.6
+## Aggregation Pipeline, MongoDB v3.2
 
-[Stage operators](http://docs.mongodb.org/manual/reference/operator/aggregation/):
+[Stage operators](https://docs.mongodb.org/master/reference/operator/aggregation):
 
 1. `$project` – specify document fields to be processed
 1. `$match` – select documents to be processed, similar to find()
@@ -11,7 +11,10 @@
 1. `$sort` - sort documents
 1. `$geoNear` – select documents near a geospacial location
 1. `$out` – write the results of the pipeline to a collection (new in 2.6)
-1. `$redact` – incorporates the functionality of `$project` and `$match` (?)
+1. `$sample` – randomly selects the specified number of documents from its input
+1. `$lookup` – performs a left outer join to another collection in the same database
+1. `$redact` – incorporates the functionality of `$project` and `$match`
+
 
 See also [expression operators](http://docs.mongodb.org/manual/reference/operator/aggregation/#expression-operators).
 
@@ -23,14 +26,14 @@ Each document has the following form:
 ```json
 {
   "_id" : "35004",
-  "city" : "Acmar",
+  "city" : "ACMAR",
   "state" : "AL",
   "pop" : 6055,
   "loc" : [-86.51557, 33.584132]
 }
 ```
 
-### Aggregation cursors 
+### Aggregation cursors
 
 Note, that aggregation cursors are not available within *mongo* shell.
 
@@ -57,7 +60,7 @@ cursor.forEach(function(d) {
 });
 ```
 
-Cursor methods:
+Cursor methods (`db.zipcodes.find().help()`):
 
 * `.toArray()` – iterates through docs and returns an array of the results
 * `.forEach( func )`
