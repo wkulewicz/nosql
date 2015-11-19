@@ -3,7 +3,7 @@
 
 ## Stacjonarne
 
-1. Bołt Aleksander
+1. [Bołt Aleksander](https://github.com/alexandder/nosql-zal)
 1. [Czerwiński, Mateusz](https://github.com/mtczerwinski/red-nosql)
 1. [Jasiński Remigiusz](https://github.com/rjasinski/nosql)
 1. Kulewicz Wojciech
