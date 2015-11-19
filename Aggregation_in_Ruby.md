@@ -26,25 +26,30 @@ On the *irb* console run:
 
 ```ruby
 require "mongo"
-include Mongo
 
-db = MongoClient.new("localhost", 27017, w: 1).db("test")
-coll = db.collection("zipcodes")
-coll.count     #=> should return 29467
-coll.find_one
+client = Mongo::Client.new(['localhost:27017'], {database: 'test'})
+coll = client[:zipcodes]
+
+coll.count     #=> should return 29353
+coll.find.first
+
+Mongo::Logger.level = Logger::INFO # default Logger::DEBUG
 ```
 
 ## Aggregations using the Zip Codes Data Set
 
 Each document in this collection has the following form:
 
-```json
+```ruby
 {
-  "_id" : "35004",
-  "city" : "Acmar",
-  "state" : "AL",
-  "pop" : 6055,
-  "loc" : [-86.51557, 33.584132]
+  "_id": "01001",
+  "city": "AGAWAM",
+  "loc": [
+    -72.622739,
+    42.070206
+  ],
+  "pop": 15338,
+  "state": "MA"
 }
 ```
 
@@ -63,7 +68,7 @@ To get all states with a population greater than 10 million, use
 the following aggregation pipeline:
 
 ```ruby
-puts coll.aggregate([
+ag = coll.aggregate([
   {"$group" => {_id: "$state", total_pop: {"$sum" => "$pop"}}},
   {"$match" => {total_pop: {"$gte" => 10_000_000}}}
 ])
@@ -71,14 +76,17 @@ puts coll.aggregate([
 The result:
 
 ```ruby
-{"_id"=>"PA", "total_pop"=>11881643}
-{"_id"=>"OH", "total_pop"=>10847115}
-{"_id"=>"NY", "total_pop"=>17990455}
-{"_id"=>"FL", "total_pop"=>12937284}
-{"_id"=>"TX", "total_pop"=>16986510}
-{"_id"=>"IL", "total_pop"=>11430472}
-{"_id"=>"CA", "total_pop"=>29760021}
-```
+require 'pp'
+
+pp ag.to_a.sort_by { |d| d.to_h["total_pop"] }
+[{"_id"=>"OH", "total_pop"=>10846517},
+ {"_id"=>"IL", "total_pop"=>11427576},
+ {"_id"=>"PA", "total_pop"=>11881643},
+ {"_id"=>"FL", "total_pop"=>12686644},
+ {"_id"=>"TX", "total_pop"=>16984601},
+ {"_id"=>"NY", "total_pop"=>17990402},
+ {"_id"=>"CA", "total_pop"=>29754890}]
+ ```
 
 The above aggregation pipeline is build from two pipeline operators:
 `$group` and `$match`.
@@ -113,7 +121,7 @@ To get the first three states with the greatest average population
 per city, use the following aggregation:
 
 ```ruby
-puts coll.aggregate([
+ag = coll.aggregate([
   {"$group" => {_id: {state: "$state", city: "$city"}, pop: {"$sum" => "$pop"}}},
   {"$group" => {_id: "$_id.state", avg_city_pop: {"$avg" => "$pop"}}},
   {"$sort" => {avg_city_pop: -1}},
@@ -124,9 +132,10 @@ puts coll.aggregate([
 This aggregate pipeline produces:
 
 ```ruby
-{"_id"=>"DC", "avg_city_pop"=>303450.0}
-{"_id"=>"FL", "avg_city_pop"=>27942.29805615551}
-{"_id"=>"CA", "avg_city_pop"=>27735.341099720412}
+pp ag.to_a
+[{"_id"=>"DC", "avg_city_pop"=>303450.0},
+ {"_id"=>"CA", "avg_city_pop"=>27756.42723880597},
+ {"_id"=>"FL", "avg_city_pop"=>27400.958963282937}]
 ```
 
 The above aggregation pipeline is build from three pipeline operators:
@@ -145,7 +154,7 @@ The second `$group` uses these documents to create the following
 documents:
 
 ```ruby
-{"_id"=>"FL", "avg_city_pop"=>27942.29805615551}
+{"_id"=>"FL", "avg_city_pop"=>27400.958963282937}
 ```
 
 These documents are sorted by the `avg_city_pop` field in descending order.
@@ -159,7 +168,7 @@ To get the smallest and largest cities by population for each
 state, use the following aggregate pipeline:
 
 ```ruby
-puts coll.aggregate([
+ag = coll.aggregate([
   {"$group" => {_id: {state: "$state", city: "$city"}, pop: {"$sum" => "$pop"}}},
   {"$sort" => {pop: 1}},
   {"$group" => {
@@ -201,12 +210,27 @@ biggest population and the city population.
 The sample document created at this stage looks like:
 
 ```ruby
-{
-  "_id"=>"OH",
-  "smallest_city" => "Isle Saint Georg", "smallest_pop" =>     38,
-  "biggest_city"  =>        "Cleveland", "biggest_pop"  => 536759
-}
-
+pp ag.to_a[1..4]
+[{"_id"=>"MS",
+  "smallest_city"=>"CHUNKY",
+  "smallest_pop"=>79,
+  "biggest_city"=>"JACKSON",
+  "biggest_pop"=>204788},
+ {"_id"=>"RI",
+  "smallest_city"=>"CLAYVILLE",
+  "smallest_pop"=>45,
+  "biggest_city"=>"CRANSTON",
+  "biggest_pop"=>176404},
+ {"_id"=>"IL",
+  "smallest_city"=>"ANCONA",
+  "smallest_pop"=>38,
+  "biggest_city"=>"CHICAGO",
+  "biggest_pop"=>2452177},
+ {"_id"=>"CT",
+  "smallest_city"=>"EAST KILLINGLY",
+  "smallest_pop"=>25,
+  "biggest_city"=>"BRIDGEPORT",
+  "biggest_pop"=>141638}]
 ```
 
 ## Unwinding data in the Name Days Data Set
