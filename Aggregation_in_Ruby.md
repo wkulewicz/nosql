@@ -247,10 +247,15 @@ mongoimport --drop --db test --collection cal name_days.json
 After import, the collection *cal*  should contain
 364 documents in the following format:
 
-```json
+```ruby
 {
-  "date" : {"day": 1, "month": 1},
-  "names": ["Mieszka", "Mieczysława", "Marii"]
+  "_id": ObjectId("564e2894fbe8d6e3ecc81712"),
+  "names": [
+    "Izydora", "Bazylego", "Grzegorza"
+  ],
+  "date": {
+    "day": 2, "month": 1
+  }
 }
 ```
 
@@ -259,9 +264,9 @@ After import, the collection *cal*  should contain
 The following aggregation pipeline computes this:
 
 ```ruby
-coll = db.collection("cal") # switch collection
+coll = client[:cal] # switch collection
 
-puts coll.aggregate([
+ag = coll.aggregate([
   {"$project" => {names: 1, _id: 0}},
   {"$unwind" => "$names" },
   {"$group" => {_id: "$names", count: {"$sum" => 1}}},
@@ -274,7 +279,7 @@ The sample document created by the `$project` pipeline operator
 looks like:
 
 ```ruby
-{"names"=>["Sylwestra", "Melanii", "Mariusza"]}
+{"names"=>["Izydora", "Bazylego", "Grzegorza"]}
 ```
 
 The `$unwind` operator creates one document for every member of
@@ -282,9 +287,9 @@ The `$unwind` operator creates one document for every member of
 documents:
 
 ```ruby
-{"names"=>"Sylwestra"}
-{"names"=>"Melanii"}
-{"names"=>"Mariusza"}
+{"names"=>"Izydora"}
+{"names"=>"Bazylego"}
+{"names"=>"Grzegorza"}
 ```
 
 These documents are grouped by the `names` field and the documents
@@ -301,12 +306,13 @@ Finally, the `$sort` operator sorts these documents by the
 outputs the first 6 documents:
 
 ```ruby
-{"_id"=>"Jana",       "count"=>21}
-{"_id"=>"Marii",      "count"=>16}
-{"_id"=>"Grzegorza",  "count"=> 9}
-{"_id"=>"Piotra",     "count"=> 9}
-{"_id"=>"Feliksa",    "count"=> 8}
-{"_id"=>"Leona",      "count"=> 8}
+pp ag.to_a
+[{"_id"=>"Jana", "count"=>21},
+ {"_id"=>"Marii", "count"=>16},
+ {"_id"=>"Grzegorza", "count"=>9},
+ {"_id"=>"Piotra", "count"=>9},
+ {"_id"=>"Leona", "count"=>8},
+ {"_id"=>"Feliksa", "count"=>8}]
 ```
 
 ### Pivot date ↺ names
@@ -327,7 +333,7 @@ into this format:
 The following aggregation pipeline does the trick:
 
 ```ruby
-puts coll.aggregate([
+ag = coll.aggregate([
   {"$project" => {_id: 0, date: 1, names: 1}},
   {"$unwind" => "$names"},
   {"$group" => {_id: "$names", dates: {"$addToSet" => "$date"}}},
@@ -355,7 +361,12 @@ In the last two stages we sort and reshape these documents to the
 requested format:
 
 ```ruby
-{"dates"=>[{"day"=>11, "month"=>8}, {"day"=>24, "month"=>5}], "name"=>"Zuzanny"}
+pp ag.to_a[100]
+{
+  "dates"=>[
+    {"day"=>29, "month"=>12}, {"day"=>15, "month"=>7}, {"day"=>1, "month"=>3}
+  ],
+  "name"=>"Dawida"}
 ```
 
 
@@ -368,12 +379,13 @@ coll.aggregate([])
 ```
 
 2\. For the *zipcodes* collection, the aggregation below computes
-`248_690_240`. What does this number mean?
+`248_408_400`. What does this number mean?
 
 
 ```ruby
 puts coll.aggregate([ {"$group" => {_id: 0, sum: {"$sum" => "$pop"}}} ])
-#=> {"_id"=>0, "sum"=>248690240}
+ag.count # 1
+ag.to_a[0] # {"_id"=>0, "sum"=>248_408_400}
 ```
 
 3\. How many different names are in the *cal* collection?
