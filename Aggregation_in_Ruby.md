@@ -33,7 +33,8 @@ coll = client[:zipcodes]
 coll.count     #=> should return 29353
 coll.find.first
 
-Mongo::Logger.level = Logger::INFO # default Logger::DEBUG
+# mute Logger
+Mongo::Logger.level = Logger::INFO # the default is Logger::DEBUG
 ```
 
 ## Aggregations using the Zip Codes Data Set
