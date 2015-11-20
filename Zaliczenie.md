@@ -15,7 +15,7 @@
 1. [Sikora Jacek](https://github.com/jaresh/nosql)
 1. [Słowikowska Sylwia](https://github.com/sslowikowska/nosql)
 1. [Zhorniak Oleksandr](https://github.com/zh0ra/nosql)
-
+1. [Kulewicz Wojciech](https://github.com/wkulewicz/nosql.wkulewicz)
 
 <!--
 1. Kulewicz Wojciech
