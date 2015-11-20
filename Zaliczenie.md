@@ -18,7 +18,6 @@
 
 
 <!--
-1. Kulewicz Wojciech
 1. Wolf Tomasz
 -->
 
