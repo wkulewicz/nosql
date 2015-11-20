@@ -6,7 +6,6 @@
 1. [Bołt Aleksander](https://github.com/alexandder/nosql-zal)
 1. [Czerwiński, Mateusz](https://github.com/mtczerwinski/red-nosql)
 1. [Jasiński Remigiusz](https://github.com/rjasinski/nosql)
-1. Kulewicz Wojciech
 1. [Leyk Szymon](https://github.com/leyas/NoSQL)
 1. [Maziarz, Paulina](https://github.com/pmaziarz/solutions-nosql)
 1. [Mielniczuk, Małgorzata](https://github.com/Gosiamek/NoSQL.git)
@@ -15,8 +14,13 @@
 1. [Pranszke Tomasz](https://github.com/tpranszke/nosql)
 1. [Sikora Jacek](https://github.com/jaresh/nosql)
 1. [Słowikowska Sylwia](https://github.com/sslowikowska/nosql)
-1. Wolf Tomasz
 1. [Zhorniak Oleksandr](https://github.com/zh0ra/nosql)
+
+
+<!--
+1. Kulewicz Wojciech
+1. Wolf Tomasz
+-->
 
 
 ## Niestacjonarne
