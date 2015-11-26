@@ -41,7 +41,7 @@
 1. Piątek Mariusz
 1. Ponieważ Paweł
 1. Portalski Sylwester
-1. Ruchlewicz Natalia
+1. [Ruchlewicz Natalia](https://github.com/nruchlewicz/NoSQL)
 1. Samsoniuk Damian
 1. Śliwiński Marcin
 1. Tkacz Jessica
