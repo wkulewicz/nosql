@@ -36,7 +36,7 @@
 1. Krajnik Martyna
 1. Krzychowiec Rafał
 1. Kupniewski Rafał
-1. Lipiński Michał
+1. [Lipiński Michał, Piątek Mariusz](https://github.com/mlipinski2/nosql_zaliczenie)
 1. Miszczykowski Mariusz
 1. Piątek Mariusz
 1. Ponieważ Paweł
