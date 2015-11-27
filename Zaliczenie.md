@@ -16,12 +16,7 @@
 1. [Słowikowska Sylwia](https://github.com/sslowikowska/nosql)
 1. [Zhorniak Oleksandr](https://github.com/zh0ra/nosql)
 1. [Wolf Tomasz](https://github.com/tomaszwolf/nosql)
-
-<!--
-1. Kulewicz Wojciech
-
--->
-
+1. [Kulewicz, Wojciech](https://github.com/wkulewicz/nosql.wk) 
 
 ## Niestacjonarne
 
